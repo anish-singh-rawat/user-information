@@ -2,18 +2,16 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { CircularProgress } from '@mui/material'
-import type { GetServerSideProps } from 'next';
 
 const Dashboard = () => {
-  
   const [userData, setUserData] = useState<any>([])
-  const hendleFetch = async () => {
-    const res = await axios.get('/api/getusers')
-    setUserData(res.data.topic)
-  }
   useEffect(() => {
-    hendleFetch();
+    const test = getServerSideProps();
+    test.then((res) => {
+      setUserData(res.props.userData)
+    })
   }, [])
+
   return (
     <>
       {
@@ -25,7 +23,7 @@ const Dashboard = () => {
               </h1>
             </center>
             {
-              userData.map((data: any, i: Number) => (
+              userData.map((data: any, i: any) => (
                 <div key={data._id} className="container">
                   <div className="row">
                     <div className="col">
@@ -33,7 +31,7 @@ const Dashboard = () => {
                         style={{ border: "2px solid #17a2b8" }}>
                         <div className="card-body bg-light">
                           <center>
-                            {/* User {i+1} */}
+                            User {i + 1}
                           </center>
                           <div className=' mt-4 d-flex justify-content-between align-items-center'>
                             <h5 className="card-title text-primary">
@@ -98,4 +96,13 @@ const Dashboard = () => {
     </>
   )
 }
+
+const getServerSideProps = async () => {
+  const res = await axios.get('/api/getusers')
+  const userData = res.data.topic
+  return {
+    props: { userData }
+  }
+}
+
 export default Dashboard

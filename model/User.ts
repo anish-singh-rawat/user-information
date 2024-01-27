@@ -1,35 +1,35 @@
 import mongoose,  { Schema } from "mongoose";
 const userSchema = new Schema({
     firstName : {
-        require : [true, "first name is required"],
+        require : [true],
         type : Schema.Types.String,
     },  
     lastName : {
-        require : [true, "lastName is required"],
+        require : [true],
         type : Schema.Types.String,
     },
     email : {
-        require : [true, "email is required"],
+        require : [true],
         type : Schema.Types.String,
     },
     fatherName : {
-        require : [true, "lastName is required"],
+        require : [true],
         type : Schema.Types.String,
     },
     motherName : {
-        require : [true, "lastName is required"],
+        require : [true],
         type : Schema.Types.String,
     },
     address : {
-        require : [true, "lastName is required"],
+        require : [true],
         type : Schema.Types.String,
     }, 
     pincode : {
-        require : [true, "lastName is required"],
+        require : [true],
         type : Schema.Types.String,
     },
     country : {
-        require : [true, "lastName is required"],
+        require : [true],
         type : Schema.Types.String,
       }
 })
