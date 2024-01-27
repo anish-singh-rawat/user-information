@@ -1,9 +1,9 @@
 import {  NextResponse } from "next/server";
-import { connect } from "../../../../database/mongo.config";
 import { User } from "../../../../model/User";
+import { connect } from "../../../../database/mongo.config";
 
 export async function GET (){
-    await connect();
+    connect()
     const topic = await User.find();
     return NextResponse.json({topic})
 }

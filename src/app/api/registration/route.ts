@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { connect } from "../../../../database/mongo.config";
 import { User } from "../../../../model/User";
 
-connect();
 export async function POST(request:NextRequest) {
     try {
         const {firstName, lastName, email, fatherName, motherName, address, pincode, country}  = await request.json();
