@@ -1,28 +1,10 @@
-'use client'
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import UsersData from '@/components/UsersData'
+import UserData from '@/components/UserData/UserData'
+import React from 'react'
 
-const Dashboard = () => {
-  const [userData, setUserData] = useState<any>([])
-  useEffect(() => {
-    const test = getServerSideProps();
-    test.then((res) => {
-      setUserData(res.props.userData)
-    })
-  }, [])
-
+const page = () => {
   return (
-    <UsersData userData={userData}/>
+   <UserData/>
   )
 }
 
-const getServerSideProps = async () => {
-  const res = await axios.get('/api/getusers')
-  const userData = res.data.topic
-  return {
-    props: { userData }
-  }
-}
-
-export default Dashboard
+export default page
