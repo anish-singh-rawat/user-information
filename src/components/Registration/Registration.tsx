@@ -11,9 +11,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
 import { CircularProgress } from '@mui/material';
 
+
 const Registration = () => {
   const router = useRouter();
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState<any>({
     firstName: "",
     lastName: "",
     email: "",
