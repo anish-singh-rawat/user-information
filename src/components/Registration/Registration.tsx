@@ -9,6 +9,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
+import { CircularProgress } from '@mui/material';
 
 const Registration = () => {
   const router = useRouter();
@@ -21,6 +22,8 @@ const Registration = () => {
     address: "",
     pincode: "",
     country: "",
+    loader : false,
+    disable : false,
   });
 
   const inputFields = [
@@ -35,6 +38,21 @@ const Registration = () => {
 
   const handleSubmit = async (e : any) => {
     e.preventDefault();
+    setUserInfo({
+      ...userInfo,
+      loader: true,
+      disable : true,
+    });
+    if(!userInfo.address || !userInfo.country || !userInfo.email || !userInfo.fatherName || !userInfo.motherName || !userInfo.firstName || !userInfo.lastName ||!userInfo.pincode ){
+      setUserInfo({
+        ...userInfo,
+        loader: false,
+        disable : false,
+      });
+      toast.error( 'Please enter all feilds');
+      return
+    }
+
     try {
       const res = await axios.post("/api/registration", userInfo);
       if (res.status === 201) {
@@ -49,10 +67,17 @@ const Registration = () => {
           address: "",
           pincode: "",
           country: "",
+          loader : false,
+          disable : true,
         });
       }
     } catch (error) {
       console.log(error);
+      setUserInfo({
+        ...userInfo,
+        loader: false,
+        disable : false,
+      });
     }
   };
 
@@ -109,13 +134,17 @@ const Registration = () => {
                   </Box>
                   <br />
                   <center>
-                    <button
-                      type="submit"
-                      className="btn text-white mb-2"
-                      style={{ backgroundColor: '#2c3e50' }}
-                    >
-                      Submit
-                    </button>
+                    {
+                        userInfo.loader ? <CircularProgress/>
+                        :
+                        <button
+                        disabled={userInfo.disable}
+                        type="submit"
+                        className="btn text-white mb-2"
+                        style={{ backgroundColor: '#2c3e50' }}>
+                        Submit
+                      </button>
+                    }
                   </center>
                 </form>
               </div>
